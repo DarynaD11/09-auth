@@ -1,12 +1,11 @@
-// components/NoteForm/NoteForm.tsx
 "use client";
 
 import css from "./NoteForm.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNote } from "@/lib/api";
 import type { NewNoteData } from "@/types/note";
 import { useRouter } from "next/navigation";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { createNote } from "@/lib/api/clientApi";
 
 export default function NoteForm() {
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
@@ -42,6 +41,7 @@ export default function NoteForm() {
       [e.target.name]: e.target.value,
     });
   };
+
   return (
     <form onSubmit={handleSubmit} className={css.form}>
       <div className={css.formGroup}>
@@ -84,6 +84,11 @@ export default function NoteForm() {
           <option value="Personal">Personal</option>
           <option value="Meeting">Meeting</option>
           <option value="Shopping">Shopping</option>
+          <option value="Shopping">Ideas</option>
+          <option value="Shopping">Travel</option>
+          <option value="Shopping">Finance</option>
+          <option value="Shopping">Health</option>
+          <option value="Shopping">Important</option>
         </select>
       </div>
 

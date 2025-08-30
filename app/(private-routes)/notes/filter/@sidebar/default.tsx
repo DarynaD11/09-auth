@@ -8,6 +8,11 @@ const tags: (NoteTag | "All")[] = [
   "Personal",
   "Meeting",
   "Shopping",
+  "Ideas",
+  "Travel",
+  "Finance",
+  "Health",
+  "Important",
   "Todo",
 ];
 

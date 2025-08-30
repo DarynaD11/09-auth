@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Roboto, Geist } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Providers from "../components/TanStackProvider/TanStackProvider";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 const robotoSans = Roboto({
   subsets: ["latin"],
@@ -46,13 +47,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${robotoSans.variable}`}>
         <Providers>
-          <Header />
-          <main>
-            {children}
-            {modal}
-          </main>
-          <div id="modal-root" />
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <main>
+              {children}
+              {modal}
+            </main>
+            <div id="modal-root" />
+            <Footer />
+          </AuthProvider>
         </Providers>
       </body>
     </html>

@@ -8,11 +8,10 @@ import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-
 import { useDebouncedCallback } from "use-debounce";
-import { fetchNotes } from "@/lib/api";
 import { Note } from "@/types/note";
 import Link from "next/link";
+import { fetchNotes } from "@/lib/api/clientApi";
 
 interface NotesClientProps {
   initialNotes: Note[];

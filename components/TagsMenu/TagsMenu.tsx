@@ -11,6 +11,11 @@ const tags: (NoteTag | "All")[] = [
   "Personal",
   "Meeting",
   "Shopping",
+  "Ideas",
+  "Travel",
+  "Finance",
+  "Health",
+  "Important",
   "Todo",
 ];
 
@@ -30,7 +35,9 @@ export default function TagsMenu() {
           {tags.map((tag) => (
             <li key={tag} className={css.menuItem}>
               <Link
-                href={tag === "All" ? "/notes/filter/All" : `/notes/filter/${tag}`}
+                href={
+                  tag === "All" ? "/notes/filter/All" : `/notes/filter/${tag}`
+                }
                 className={css.menuLink}
                 onClick={() => setOpen(false)}
               >

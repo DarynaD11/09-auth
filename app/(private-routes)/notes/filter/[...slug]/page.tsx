@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import NotesClient from "./Notes.client";
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes, getServerMe } from "@/lib/api/serverApi";
+import { redirect } from "next/navigation";
 
 interface NotesPageProps {
   params: Promise<{ slug: string[] }>;
@@ -33,6 +34,12 @@ export async function generateMetadata({
 }
 
 export default async function NotesPage({ params }: NotesPageProps) {
+const user = await getServerMe();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
   const { slug } = await params;
   const tag = slug[0] === "all" ? undefined : slug[0];
 
