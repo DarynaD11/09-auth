@@ -5,10 +5,12 @@ import css from "./SignUpPage.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AxiosError } from "axios";
+import { useAuthStore } from "@/lib/store/authStore";
 
 export default function SignUp() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,6 +19,7 @@ export default function SignUp() {
       const data = Object.fromEntries(formData) as UserRequest;
       const res = await register(data);
       if (res) {
+        setUser(res);
         router.push("/profile");
       } else {
         setError("Invalid email or password");

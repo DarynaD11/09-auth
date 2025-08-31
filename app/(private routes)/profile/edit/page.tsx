@@ -10,12 +10,25 @@ export default function EditProfile() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const [username, setUsername] = useState("");
+  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
-    getMe().then((user) => {
-      setUsername(user.username ?? "");
-    });
-  }, []);
+    const fetchUser = async () => {
+      try {
+        if (!user?.email) {
+          const data = await getMe();
+          setUser(data);
+          setUsername(data.username ?? "");
+        } else {
+          setUsername(user.username ?? "");
+        }
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
+      }
+    };
+
+    fetchUser();
+  }, [user, setUser]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -23,7 +36,8 @@ export default function EditProfile() {
 
   const handleSaveUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await updateUser({ username, email: user.email });
+    const updatedUser = await updateUser({ username });
+    setUser(updatedUser);
     router.push("/profile");
   };
 
@@ -37,7 +51,10 @@ export default function EditProfile() {
         <h1 className={css.formTitle}>Edit Profile</h1>
 
         <Image
-          src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
+          src={
+            user?.avatar ||
+            "https://ac.goit.global/fullstack/react/default-avatar.jpg"
+          }
           alt="User Avatar"
           width={120}
           height={120}
@@ -50,6 +67,7 @@ export default function EditProfile() {
             <input
               id="username"
               type="text"
+              value={username}
               className={css.input}
               onChange={handleChange}
             />

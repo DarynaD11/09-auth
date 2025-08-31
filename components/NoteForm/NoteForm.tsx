@@ -75,7 +75,6 @@ export default function NoteForm() {
           id="tag"
           name="tag"
           className={css.select}
-          defaultValue="Todo"
           onChange={handleChange}
           value={draft.tag}
         >
@@ -84,11 +83,11 @@ export default function NoteForm() {
           <option value="Personal">Personal</option>
           <option value="Meeting">Meeting</option>
           <option value="Shopping">Shopping</option>
-          <option value="Shopping">Ideas</option>
-          <option value="Shopping">Travel</option>
-          <option value="Shopping">Finance</option>
-          <option value="Shopping">Health</option>
-          <option value="Shopping">Important</option>
+          <option value="Ideas">Ideas</option>
+          <option value="Travel">Travel</option>
+          <option value="Finance">Finance</option>
+          <option value="Health">Health</option>
+          <option value="Important">Important</option>
         </select>
       </div>
 

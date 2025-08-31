@@ -1,4 +1,3 @@
-import api from "./api";
 import type { Note, NewNoteData } from "@/types/note";
 import type { User } from "@/types/user";
 import nextServer from "./api";
@@ -28,14 +27,8 @@ export const getMe = async () => {
   return data;
 };
 
-export const updateUser = async ({
-  username,
-  email,
-}: {
-  username: string;
-  email: string;
-}) => {
-  const res = await api.patch<User>("/users/me", { username, email });
+export const updateUser = async ({ username }: { username: string }) => {
+  const res = await nextServer.patch<User>("/users/me", { username });
   return res.data;
 };
 
@@ -61,7 +54,7 @@ export const fetchNotes = async ({
   search = "",
   tag,
 }: FetchNotesParams): Promise<NotesHttpResponse> => {
-  const res = await api.get<NotesHttpResponse>("/notes", {
+  const res = await nextServer.get<NotesHttpResponse>("/notes", {
     params: {
       page,
       perPage,
